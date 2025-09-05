@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Contact{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <h1 class="text-2xl font-bold mb-6 text-indigo-400">Edit Contact</h1>
+    
+    <form method="post" class="grid gap-4 bg-gray-800 p-6 rounded-lg">
+        <input name="name" value="{{ contact['name'] }}" required class="p-3 rounded bg-gray-700 border border-gray-600" placeholder="Name">
+        <input name="phone" value="{{ contact['phone'] or '' }}" class="p-3 rounded bg-gray-700 border border-gray-600" placeholder="Phone">
+        <input name="email" value="{{ contact['email'] or '' }}" type="email" class="p-3 rounded bg-gray-700 border border-gray-600" placeholder="Email">
+        <input name="address" value="{{ contact['address'] or '' }}" class="p-3 rounded bg-gray-700 border border-gray-600" placeholder="Address">
+        
+        <select name="category" class="p-3 rounded bg-gray-700 border border-gray-600">
+            {% for cat in categories %}
+                <option value="{{ cat.name }}" {% if cat.name == contact['category'] %}selected{% endif %}>{{ cat.name }}</option>
+            {% endfor %}
+        </select>
+        
+        <textarea name="notes" class="p-3 rounded bg-gray-700 border border-gray-600" placeholder="Notes" rows="3">{{ contact['notes'] or '' }}</textarea>
+        
+        <div class="flex justify-between mt-4">
+            <button class="bg-indigo-600 hover:bg-indigo-500 p-3 rounded font-medium">Save Changes</button>
+            <a href="{{ url_for('index') }}" class="bg-gray-700 hover:bg-gray-600 p-3 rounded">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
