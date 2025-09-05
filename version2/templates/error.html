@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Error {{ error_code }}{% endblock %}
+
+{% block content %}
+<div class="text-center py-12">
+    <h1 class="text-6xl font-bold text-indigo-400 mb-4">{{ error_code }}</h1>
+    <p class="text-xl mb-6">{{ error_message }}</p>
+    <a href="{{ url_for('index') }}" class="bg-indigo-600 hover:bg-indigo-500 p-3 rounded inline-block">Back to Home</a>
+</div>
+{% endblock %}
