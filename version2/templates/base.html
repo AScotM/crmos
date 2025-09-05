@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}CRM{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .alert-success { @apply bg-green-800 text-green-100 p-3 rounded-md mb-4; }
+        .alert-error { @apply bg-red-800 text-red-100 p-3 rounded-md mb-4; }
+        .empty-state { @apply text-gray-500 text-center py-8; }
+        .pagination-link { @apply px-3 py-2 rounded-md bg-gray-800 text-gray-300 hover:bg-gray-700; }
+        .pagination-current { @apply px-3 py-2 rounded-md bg-indigo-600 text-white; }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-6">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
