@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Login - CRM{% endblock %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full space-y-8 bg-gray-800 p-8 rounded-lg shadow-lg">
+        <div>
+            <h1 class="text-3xl font-bold text-center text-indigo-400">Login</h1>
+            <p class="mt-2 text-center text-gray-400">Sign in to your account</p>
+        </div>
+        
+        <form class="mt-8 space-y-6" method="POST" action="{{ url_for('login') }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            
+            <div class="space-y-4">
+                <div>
+                    <label for="username" class="sr-only">Username</label>
+                    <input id="username" name="username" type="text" required 
+                           class="relative block w-full px-3 py-3 bg-gray-700 border border-gray-600 
+                                  placeholder-gray-400 text-gray-100 rounded-md focus:outline-none 
+                                  focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" 
+                           placeholder="Username" value="{{ request.form.username if request.form }}">
+                </div>
+                <div>
+                    <label for="password" class="sr-only">Password</label>
+                    <input id="password" name="password" type="password" required 
+                           class="relative block w-full px-3 py-3 bg-gray-700 border border-gray-600 
+                                  placeholder-gray-400 text-gray-100 rounded-md focus:outline-none 
+                                  focus:ring-indigo-500 focus:border-indigo-500 focus:z-10" 
+                           placeholder="Password">
+                </div>
+            </div>
+
+            <div>
+                <button type="submit" 
+                        class="group relative w-full flex justify-center py-3 px-4 border border-transparent 
+                               text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 
+                               focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Sign in
+                </button>
+            </div>
+            
+            <div class="text-center">
+                <p class="text-gray-400">
+                    Don't have an account?
+                    <a href="{{ url_for('register') }}" class="font-medium text-indigo-400 hover:text-indigo-300">
+                        Register here
+                    </a>
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
