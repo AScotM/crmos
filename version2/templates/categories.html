@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Categories{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold text-indigo-400">Manage Categories</h1>
+        <a href="{{ url_for('index') }}" class="text-gray-300 hover:text-white">&larr; Back to Contacts</a>
+    </div>
+
+    <div class="bg-gray-800 p-6 rounded-lg shadow-md mb-6">
+        <h2 class="text-xl font-semibold mb-4">Add New Category</h2>
+        <form method="post" action="{{ url_for('add_category') }}" class="flex gap-4 items-end">
+            <div class="flex-grow">
+                <label class="block mb-1">Category Name</label>
+                <input name="name" required class="w-full p-3 rounded bg-gray-700 border border-gray-600" placeholder="Category name">
+            </div>
+            
+            <div>
+                <label class="block mb-1">Color</label>
+                <input type="color" name="color" value="#3B82F6" class="w-16 h-10 rounded bg-gray-700 border border-gray-600">
+            </div>
+            
+            <button class="bg-indigo-600 hover:bg-indigo-500 p-3 rounded">Add Category</button>
+        </form>
+    </div>
+
+    <h2 class="text-xl font-semibold mb-4">Your Categories</h2>
+    
+    {% if categories %}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {% for cat in categories %}
+        <div class="bg-gray-800 p-4 rounded-lg shadow-md flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="w-4 h-4 rounded-full mr-2" style="background-color: {{ cat.color }}"></div>
+                <span>{{ cat.name }}</span>
+            </div>
+            
+            {% if cat.name not in ['General', 'Family', 'Work', 'Friends'] %}
+            <a href="{{ url_for('delete_category', id=cat.id) }}" 
+               class="text-red-400 hover:text-red-300 text-sm"
+               onclick="return confirm('Delete category {{ cat.name }}?')">Delete</a>
+            {% else %}
+            <span class="text-gray-500 text-sm">Default</span>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="empty-state">No categories found.</p>
+    {% endif %}
+</div>
+{% endblock %}
